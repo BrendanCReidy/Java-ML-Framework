@@ -22,6 +22,7 @@ network.train();
 This main is using the MNIST dataset to train.
 ###### Code:
 ```
+int numEpoch = 5
 Matrix2D trainingData = Matrix2D.loadFromFile("imageTrainingData.csv");
 Matrix2D trainingDataSubset = Matrix2D.loadFromFile("imageTrainingDataSubset.csv");
 NeuralNetwork network = new NeuralNetwork(trainingData, 2, 16);
@@ -31,7 +32,7 @@ network.setTrainingSubset(trainingDataSubset);
 network.setLearningRate(0.2);
 network.printSpecs();
 System.out.println("Training...");
-for(int i=0; i<5; i++) {
+for(int i=0; i<numEpoch; i++) {
 	network.train();
 }
 network.setBest();
