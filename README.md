@@ -8,10 +8,12 @@ This program trains neural networks using stochastic gradient descent. This prog
 ---------------------------------------------------------------
 # Getting Started:
 Familiarize yourself with how training data is formatted for these networks (See "Creating Training Data" below). If you understand how the training data is formatted you can start training your network using four lines of code:
+```
 Matrix2D networkMatrix = NeuralNetwork.GenerateNetwork(Matrix2D trainingData, int numHiddenLayers, int sizeHiddenLayer)
 NeuralNetwork network = new NeuralNetwork(networkMatrix);
 network.setTrainingData(trainingData);
 network.train();
+```
 
 ---------------------------------------------------------------
 # Matrix2D:
@@ -36,18 +38,19 @@ Matrix2D.loadFromFile(string aFileName); Returns a Matrix2D object given a file 
 # NeuralNetwork:
 The NeuralNetwork object is responsible for implementing the RNN.
 
-Usage:
+## Usage:
 
-NeuralNetwork(Matrix2D aNetwork) // Creates a neural network based on a Matrix2D object that contains the structure. Generates new weights and bias (Note: use NeuralNetwork.GenerateNetwork() to generate Matrix2D object for structure)
-NeuralNetwork(Matrix2D aNetwork, Matrix2D aWeights, Matrix2D aBias) // Creates a neural network object where aWeights and aBias are Matrix2D objects of trained weights and bias'
+- NeuralNetwork(Matrix2D aNetwork) // Creates a neural network based on a Matrix2D object that contains the structure. Generates new weights and bias (Note: use NeuralNetwork.GenerateNetwork() to generate - Matrix2D object for structure)
+- NeuralNetwork(Matrix2D aNetwork, Matrix2D aWeights, Matrix2D aBias) // Creates a neural network object where aWeights and aBias are Matrix2D objects of trained weights and bias'
 
-Example:
-
+## Example:
+```
 Matrix2D networkMatrix = NeuralNetwork.GenerateNetwork(Matrix2D trainingData, int numHiddenLayers, int sizeHiddenLayer)
 NeuralNetwork network = new NeuralNetwork(networkMatrix);
 network.setTrainingData(trainingData);
 network.setTrainingSubset(trainingDataSubset); // Optional but reccomended to avoid overfitting
 network.train();
+```
 
 ## Methods:
 
