@@ -87,10 +87,10 @@ every odd line is the input, and the corresponding even line is the correct outp
 
 Example:
 
-<Input1>
-<Output1>
-<Input2>
-<Output2>
+Input1 \n
+Output1 \n
+Input2 \n
+Output2 \n
 Use Matrix2D.loadFromFile("FILE_NAME") if you have data in this format ready to be trained
 
 For images, this program provides built in support. First, you need to create two separate .csv files: one for input, and one for labels.
