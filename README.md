@@ -1,4 +1,5 @@
-# MachineLearning
+# Java Machine Learing
+## J-Flow
 Java Machine Learning Project
 By Brendan C Reidy (Copyright @ Brendan C Reidy)
 
