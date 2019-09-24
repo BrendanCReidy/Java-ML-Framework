@@ -25,7 +25,9 @@ This main is using the MNIST dataset to train.
 int numEpoch = 5
 Matrix2D trainingData = Matrix2D.loadFromFile("imageTrainingData.csv");
 Matrix2D trainingDataSubset = Matrix2D.loadFromFile("imageTrainingDataSubset.csv");
-NeuralNetwork network = new NeuralNetwork(trainingData, 2, 16);
+Matrix2D networkMatrix = NeuralNetwork.GenerateNetwork(trainingData, 2, 16);
+networkMatrix.saveToFile("networkMatrix.csv");
+NeuralNetwork network = new NeuralNetwork(networkMatrix;
 network.setConsoleOutput(true);
 network.setTrainingData(trainingData);
 network.setTrainingSubset(trainingDataSubset);
