@@ -16,6 +16,7 @@ network.train();
 ```
 ---------------------------------------------------------------
 # Sample Main:
+This main is using the MNIST dataset to train.
 ###### Code:
 ```
 Matrix2D trainingData = Matrix2D.loadFromFile("imageTrainingData.csv");
