@@ -16,7 +16,7 @@ network.train();
 ```
 ---------------------------------------------------------------
 # Sample Main:
-## Code:
+###### Code:
 ```
 Matrix2D trainingData = Matrix2D.loadFromFile("imageTrainingData.csv");
 Matrix2D trainingDataSubset = Matrix2D.loadFromFile("imageTrainingDataSubset.csv");
@@ -35,7 +35,7 @@ network.weights.saveToFile("imageWeights.csv");
 network.bias.saveToFile("imageBias.csv");
 System.out.println("Accuracy: " + (1-network.getSubsetCost()));
 ```
-## Output>
+###### Output>
 ```
 Architecture:
 	Input size: 784
