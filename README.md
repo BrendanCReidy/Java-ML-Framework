@@ -14,7 +14,45 @@ NeuralNetwork network = new NeuralNetwork(networkMatrix);
 network.setTrainingData(trainingData);
 network.train();
 ```
-
+---------------------------------------------------------------
+# Sample Main:
+## Code:
+'''
+Matrix2D trainingData = Matrix2D.loadFromFile("imageTrainingData.csv");
+Matrix2D trainingDataSubset = Matrix2D.loadFromFile("imageTrainingDataSubset.csv");
+NeuralNetwork network = new NeuralNetwork(trainingData, 2, 16);
+network.setConsoleOutput(true);
+network.setTrainingData(trainingData);
+network.setTrainingSubset(trainingDataSubset);
+network.setLearningRate(0.2);
+network.printSpecs();
+System.out.println("Training...");
+for(int i=0; i<5; i++) {
+	network.train();
+}
+network.setBest();
+network.weights.saveToFile("imageWeights.csv");
+network.bias.saveToFile("imageBias.csv");
+System.out.println("Accuracy: " + (1-network.getSubsetCost()));
+'''
+## Output>
+'''
+Architecture:
+	Input size: 784
+	Output size: 10
+	Hidden layers: 2
+	Hidden neurons: 32
+	Weight count: 12960
+	Bias count: 42
+	Learning rate: 0.2
+Training...
+Cost: 0.054594295231731656
+Cost: 0.05146965578893518
+Cost: 0.048291948030104795
+Cost: 0.04641472056640749
+Cost: 0.04446579799420346
+Accuracy: 0.9495821554390572
+'''
 ---------------------------------------------------------------
 # Matrix2D:
 The Matrix2D object is simply a resizable array containing float arrays.
@@ -26,11 +64,11 @@ matrix.getArrayAt(2) --> {0.7}
 ```
 
 ## Methods:
-- add(float[] floatArray); // Works with integers and doubles as well. Size of matrix is increased and the input is add to the end of the matrix
+- add(float[] floatArray); // Works with integers and doubles as well. Size of matrix is increased and the input is added to the end of the matrix
 - getArrayAt(int index); // Returns float[] at given index
 - print(); // Outputs the contents of the array to console
 - printInt(); // Rounds each number, then outputs the array to console
-- reverse(); // Returns a reversed Matrix2D object: a[0] = a[n-1]; a[1] = a[n-2]; [a2] = a[n-3] ... etc
+- reverse(); // Returns a reversed Matrix2D object: a[0] = a[n-1]; a[1] = a[n-2]; a[2] = a[n-3] ... etc
 - saveToFile(String aFileName); // Saves the matrix to a file. Can be .csv or .txt
 
 ## Static Methods:
@@ -57,7 +95,7 @@ network.train();
 ## Methods:
 
 - setActivationFunction(ActivationFunction aFunction) // (Default: Sigmoid) Sets the activation function for the network (Note: every layer uses the same activation)
-- setConsoleOutput(boolean aValue) // (Default: false) if true will output the costs after each epoch
+- setConsoleOutput(boolean aValue) // (Default: false) if true will output the cost after each epoch
 - setLearningRate(double aRate) // (Default: 0.1) Sets the learning rate of the network
 - setTrainingData(Matrix2D aData) // Sets the training data for the network
 - setTrainingSubset(Matrix2D aData) // Sets the training subset data for the network
