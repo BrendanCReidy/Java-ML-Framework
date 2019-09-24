@@ -6,7 +6,7 @@ Description:
 This program trains neural networks using stochastic gradient descent. This program can handle a wide variety of network structures from RNN's and LTSM's to autoencoders.
 
 ---------------------------------------------------------------
-Getting Started:
+# Getting Started:
 Familiarize yourself with how training data is formatted for these networks (See "Creating Training Data" below). If you understand how the training data is formatted you can start training your network using four lines of code:
 Matrix2D networkMatrix = NeuralNetwork.GenerateNetwork(Matrix2D trainingData, int numHiddenLayers, int sizeHiddenLayer)
 NeuralNetwork network = new NeuralNetwork(networkMatrix);
@@ -14,7 +14,7 @@ network.setTrainingData(trainingData);
 network.train();
 
 ---------------------------------------------------------------
-Matrix2D:
+# Matrix2D:
 The Matrix2D object is simply a resizable array containing float arrays.
 Example:
 matrix.getArrayAt(0) --> {0.1, 0.4, 0.4}
@@ -33,7 +33,7 @@ Static Methods:
 Matrix2D.loadFromFile(string aFileName); Returns a Matrix2D object given a file location.
 
 ---------------------------------------------------------------
-NeuralNetwork:
+# NeuralNetwork:
 The NeuralNetwork object is responsible for implementing the RNN.
 Usage:
 NeuralNetwork(Matrix2D aNetwork) // Creates a neural network based on a Matrix2D object that contains the structure. Generates new weights and bias (Note: use NeuralNetwork.GenerateNetwork() to generate Matrix2D object for structure)
@@ -76,7 +76,7 @@ Matrix2D NeuralNetwork.GenerateBias(Matrix2D aMatrix) // Returns a Matrix2D obje
 
 
 ---------------------------------------------------------------
-Creating Training Data:
+# Creating Training Data:
 The training data is stored in a .csv or .txt file. The training data is formatted such that
 every odd line is the input, and the corresponding even line is the correct output (Where inputs and outputs are floating point arrays)
 Example:
