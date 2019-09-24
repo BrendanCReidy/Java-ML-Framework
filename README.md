@@ -4,7 +4,7 @@ By Brendan C Reidy (Copyright @ Brendan C Reidy)
 
 Description:
 This program trains neural networks using stochastic gradient descent. This program can handle a wide variety of network structures from RNN's and LTSM's to autoencoders.
-The \*MNIST dataset\* is too large to upload to GitHub but can be found [here](http://yann.lecun.com/exdb/mnist/)
+The **MNIST dataset** is too large to upload to GitHub but can be found [here](http://yann.lecun.com/exdb/mnist/)
 
 ---------------------------------------------------------------
 # Getting Started:
