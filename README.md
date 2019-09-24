@@ -49,35 +49,35 @@ network.setTrainingData(trainingData);
 network.setTrainingSubset(trainingDataSubset); // Optional but reccomended to avoid overfitting
 network.train();
 
-Methods:
+## Methods:
 
-setActivationFunction(ActivationFunction aFunction) // (Default: Sigmoid) Sets the activation function for the network (Note: every layer uses the same activation)
-setConsoleOutput(boolean aValue) // (Default: false) if true will output the costs after each epoch
-setLearningRate(double aRate) // (Default: 0.1) Sets the learning rate of the network
-setTrainingData(Matrix2D aData) // Sets the training data for the network
-setTrainingSubset(Matrix2D aData) // Sets the training subset data for the network
-setInput(float[] input) // Sets the input for the network
+- setActivationFunction(ActivationFunction aFunction) // (Default: Sigmoid) Sets the activation function for the network (Note: every layer uses the same activation)
+- setConsoleOutput(boolean aValue) // (Default: false) if true will output the costs after each epoch
+- setLearningRate(double aRate) // (Default: 0.1) Sets the learning rate of the network
+- setTrainingData(Matrix2D aData) // Sets the training data for the network
+- setTrainingSubset(Matrix2D aData) // Sets the training subset data for the network
+- setInput(float[] input) // Sets the input for the network
 
-float[] getOutput() // Returns the output layer of the network
-clear() // Sets all values in the network to 0
-Matrix2D getBestWeights() // Returns highest performing weights 
-Matrix2D getBestBias() // Returns highest performing bias
-setBest() // Sets the network to the highest performing weights and bias
-train() // Will train the network for one epoch
-train(int iterations) // Will train the network for specified number of iterations
-double getSubsetCost() // calculates and returns the subset cost for the network
-propogateBack(float[] correctOutput) // Performs back propogation given the correct output for the network
-feedForward() // Feeds the input values through the network
-printResults() // Prints the input and corresponding output
-printIntResults() // Prints the input and corresponding output as an integer
-printSpecs() // Prints the structure of the network as well as the total number of weights and bias.
+- float[] getOutput() // Returns the output layer of the network
+- clear() // Sets all values in the network to 0
+- Matrix2D getBestWeights() // Returns highest performing weights 
+- Matrix2D getBestBias() // Returns highest performing bias
+- setBest() // Sets the network to the highest performing weights and bias
+- train() // Will train the network for one epoch
+- train(int iterations) // Will train the network for specified number of iterations
+- double getSubsetCost() // calculates and returns the subset cost for the network
+- propogateBack(float[] correctOutput) // Performs back propogation given the correct output for the network
+- feedForward() // Feeds the input values through the network
+- printResults() // Prints the input and corresponding output
+- printIntResults() // Prints the input and corresponding output as an integer
+- printSpecs() // Prints the structure of the network as well as the total number of weights and bias.
 
-Static Methods:
+## Static Methods:
 
-Matrix2D NeuralNetwork.GenerateNetwork(int sizeInput, int sizeOutput, int numHiddenLayers, int sizeHiddenLayer) // Returns a network structure Matrix2D object given the size of the input, the size of the output, the number of hidden layers, and the size of the hidden layers. (Note: you can save this to a .csv file and edit the structure manually and the network will run fine.)
-Matrix2D NeuralNetwork.GenerateNetwork(Matrix2D trainingData, int numHiddenLayers, int sizeHiddenLayer) // Returns a network structere Matrix2D object given training data, the number of hidden layers, and the size of the hidden layer.
-Matrix2D NeuralNetwork.GenerateWeights(Matrix2D aMatrix) // Returns a Matrix2D object of weights given a network structure
-Matrix2D NeuralNetwork.GenerateBias(Matrix2D aMatrix) // Returns a Matrix2D object of bias given a network structure
+- Matrix2D NeuralNetwork.GenerateNetwork(int sizeInput, int sizeOutput, int numHiddenLayers, int sizeHiddenLayer) // Returns a network structure Matrix2D object given the size of the input, the size of the output, the number of hidden layers, and the size of the hidden layers. (Note: you can save this to a .csv file and edit the structure manually and the network will run fine.)
+- Matrix2D NeuralNetwork.GenerateNetwork(Matrix2D trainingData, int numHiddenLayers, int sizeHiddenLayer) // Returns a network structere Matrix2D object given training data, the number of hidden layers, and the size of the hidden layer.
+- Matrix2D NeuralNetwork.GenerateWeights(Matrix2D aMatrix) // Returns a Matrix2D object of weights given a network structure
+- Matrix2D NeuralNetwork.GenerateBias(Matrix2D aMatrix) // Returns a Matrix2D object of bias given a network structure
 
 
 ---------------------------------------------------------------
