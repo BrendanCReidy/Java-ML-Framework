@@ -17,7 +17,7 @@ network.train();
 ---------------------------------------------------------------
 # Sample Main:
 ## Code:
-'''
+```
 Matrix2D trainingData = Matrix2D.loadFromFile("imageTrainingData.csv");
 Matrix2D trainingDataSubset = Matrix2D.loadFromFile("imageTrainingDataSubset.csv");
 NeuralNetwork network = new NeuralNetwork(trainingData, 2, 16);
@@ -34,9 +34,9 @@ network.setBest();
 network.weights.saveToFile("imageWeights.csv");
 network.bias.saveToFile("imageBias.csv");
 System.out.println("Accuracy: " + (1-network.getSubsetCost()));
-'''
+```
 ## Output>
-'''
+```
 Architecture:
 	Input size: 784
 	Output size: 10
@@ -52,7 +52,7 @@ Cost: 0.048291948030104795
 Cost: 0.04641472056640749
 Cost: 0.04446579799420346
 Accuracy: 0.9495821554390572
-'''
+```
 ---------------------------------------------------------------
 # Matrix2D:
 The Matrix2D object is simply a resizable array containing float arrays.
