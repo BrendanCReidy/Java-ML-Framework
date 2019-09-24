@@ -9,21 +9,23 @@ This program trains neural networks using stochastic gradient descent. This prog
 # Getting Started:
 Familiarize yourself with how training data is formatted for these networks (See "Creating Training Data" below). If you understand how the training data is formatted you can start training your network using four lines of code:
 ```
-- Matrix2D networkMatrix = NeuralNetwork.GenerateNetwork(Matrix2D trainingData, int numHiddenLayers, int sizeHiddenLayer)
-- NeuralNetwork network = new NeuralNetwork(networkMatrix);
-- network.setTrainingData(trainingData);
-- network.train();
+Matrix2D networkMatrix = NeuralNetwork.GenerateNetwork(Matrix2D trainingData, int numHiddenLayers, int sizeHiddenLayer)
+NeuralNetwork network = new NeuralNetwork(networkMatrix);
+network.setTrainingData(trainingData);
+network.train();
 ```
 
 ---------------------------------------------------------------
 # Matrix2D:
 The Matrix2D object is simply a resizable array containing float arrays.
-Example:
+## Example:
+```
 matrix.getArrayAt(0) --> {0.1, 0.4, 0.4}
 matrix.getArrayAt(1) --> {0.2, 0.6, 0.8, 0.3, 0.5}
 matrix.getArrayAt(2) --> {0.7}
+```
 
-Methods:
+## Methods:
 - add(float[] floatArray); // Works with integers and doubles as well. Size of matrix is increased and the input is add to the end of the matrix
 - getArrayAt(int index); // Returns float[] at given index
 - print(); // Outputs the contents of the array to console
@@ -31,7 +33,7 @@ Methods:
 - reverse(); // Returns a reversed Matrix2D object: a[0] = a[n-1]; a[1] = a[n-2]; [a2] = a[n-3] ... etc
 - saveToFile(String aFileName); // Saves the matrix to a file. Can be .csv or .txt
 
-Static Methods:
+## Static Methods:
 - Matrix2D.loadFromFile(string aFileName); Returns a Matrix2D object given a file location.
 
 ---------------------------------------------------------------
