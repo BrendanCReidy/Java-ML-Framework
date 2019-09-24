@@ -106,14 +106,14 @@ The label file should have the corresponding classification in integer format on
 
 ## Example:
 
-####### image.csv:
+###### image.csv:
 ```
 0, 255, 223, 0, 34, 42, 255, 255 // Lets say this is a 1
 4, 233, 111, 0, 255, 255, 255, 255 // Lets say this is a 4
 4, 47, 47, 0, 0, 255, 0, 255 // Lets say this is an 8
 ...
 ```
-####### imabeLabels.csv:
+###### imabeLabels.csv:
 ```
 1
 4
