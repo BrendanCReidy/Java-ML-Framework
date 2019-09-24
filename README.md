@@ -88,12 +88,13 @@ network.train();
 The training data is stored in a .csv or .txt file. The training data is formatted such that
 every odd line is the input, and the corresponding even line is the correct output (Where inputs and outputs are floating point arrays)
 
-Example:
-
- - Input1
- - Output1
- - Input2
- - Output2
+## Example:
+```
+Input1
+Output1
+Input2
+Output2
+```
 
 Use Matrix2D.loadFromFile("FILE_NAME") if you have data in this format ready to be trained
 
@@ -103,25 +104,29 @@ In this case, the image file needs to be a .csv file where every line is a new i
 The image is represented as a list of integers from 0 to 255 (0, 255, 223, 0, 1, etc).
 The label file should have the corresponding classification in integer format on the same line.
 
-Example:
+## Example:
 
-image.csv:
-
+####### image.csv:
+```
 0, 255, 223, 0, 34, 42, 255, 255 // Lets say this is a 1
 4, 233, 111, 0, 255, 255, 255, 255 // Lets say this is a 4
 4, 47, 47, 0, 0, 255, 0, 255 // Lets say this is an 8
 ...
-imabeLabels.csv:
-
+```
+####### imabeLabels.csv:
+```
 1
 4
 8
+```
 ...
 
 Note: The classifications are not limited to numbers. You will need to decide ahead of time which numbers represent which classifications. Ex (1 = dog. 2 = cat. 3 = bird)
 Once you have your input and label files properly formatted, you can run the following code:
+```
 Matrix2D input = Matrix2D.loadFromFile("INPUT_FILE_NAME.csv");
 Matrix2D labels = Matrix2D.loadFromFile("LABEL_FILE_NAME.csv");
 Matrix2D trainingData = TrainingData.GenerateImageTrainingDataFromCSV(input, labels);
 trainingData.saveToFile("DESIRED_TRAINING_DATA_NAME.csv);
+```
 
