@@ -1,3 +1,11 @@
+/*
+    By Brendan C. Reidy
+    Created 12/10/2019
+    Last Modified 12/10/2019
+    Matrix Math
+        Offloads heavily used math functions to a separate class
+ */
+
 public class MatrixMath {
     static float[] dotProduct(float[] multiplier, float[][] multiplicand)
     {
@@ -13,12 +21,8 @@ public class MatrixMath {
         int sizeY = multiplicand.length;
         int sizeX = multiplier.length;
         for(int x=0; x<sizeX; x++)
-        {
             for(int y=0; y<sizeY; y++)
-            {
                 product[y] += multiplicand[y][x] * multiplier[x];
-            }
-        }
         return product;
     }
     static float[] sum(float[] a, float[] b)

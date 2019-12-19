@@ -6,26 +6,33 @@
         Activates neurons with the sigmoid function 'deactivates' them with inverse derivative
  */
 
-public class Sigmoid implements ActivationFunction {
-    String name = "Sigmoid";
-    public float sigmoid(float x)
+public class RELU implements ActivationFunction {
+    String name = "RELU";
+    public float relu(float x)
     {
-        return 1 / (1 + (float) Math.exp(-x));
+        if(x>0)
+            return x;
+        return 0;
     }
-    public float inverseSigmoidDerivative(float y)
+    public float inverseReluDerivative(float y)
     {
-        return y*(1-y);
+        if (y > 0)
+            return 1;
+        if (y==0)
+            return (float) 1;
+        else
+            return 0;
     }
     public float[] activate(float[] aLayer)
     {
         for(int i=0; i<aLayer.length; i++)
-            aLayer[i] = sigmoid(aLayer[i]);
+            aLayer[i] = relu(aLayer[i]);
         return aLayer;
     }
     public float[] activationError(float[] aLayer)
     {
         for(int i=0; i<aLayer.length; i++)
-            aLayer[i] = inverseSigmoidDerivative(aLayer[i]);
+            aLayer[i] = inverseReluDerivative(aLayer[i]);
         return aLayer;
     }
     public String getName()

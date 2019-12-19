@@ -4,6 +4,14 @@ import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/*
+    By Brendan C. Reidy
+    Created 12/10/2019
+    Last Modified 12/17/2019
+    MatrixIO
+        Offloads array/matrix input & output to a separate class
+ */
+
 public class MatrixIO {
     static float[][] readTrainingData(String aFileName, int length)
     {
@@ -42,8 +50,85 @@ public class MatrixIO {
         }
         return null;
     }
-    static int coolChar = 222;
-    static int cool2 = 175;
+    public static float[] flattenArray(float[][] array)
+    {
+        float[] returnVal = new float[array.length*array[0].length];
+        int k=0;
+        for(int i=0; i<array.length; i++)
+        {
+            for(int j=0; j<array[0].length; j++)
+            {
+                returnVal[k] = array[i][j];
+                k++;
+            }
+        }
+        return returnVal;
+    }
+    public static int[] flattenArray(int[][] array)
+    {
+        int[] returnVal = new int[array.length*array[0].length];
+        int k=0;
+        for(int i=0; i<array.length; i++)
+        {
+            for(int j=0; j<array[0].length; j++)
+            {
+                returnVal[k] = array[i][j];
+                k++;
+            }
+        }
+        return returnVal;
+    }
+    public static void saveToFile(LinkedList<Float> list, String aFileName){
+        String[] copy = new String[list.size()];
+        for(int i=0; i<list.size(); i++)
+        {
+            copy[i] = Float.toString(list.get(i));
+        }
+        saveToFile(copy, aFileName);
+    }
+    public static void saveToFile(double[] array, String aFileName){
+        String[] copy = new String[array.length];
+        for(int i=0; i<array.length; i++)
+        {
+            copy[i] = Double.toString(array[i]);
+        }
+        saveToFile(copy, aFileName);
+    }
+    public static void saveToFile(float[] array, String aFileName){
+        String[] copy = new String[array.length];
+        for(int i=0; i<array.length; i++)
+        {
+            copy[i] = Float.toString(array[i]);
+        }
+        saveToFile(copy, aFileName);
+    }
+    public static void saveToFile(int[] array, String aFileName){
+        String[] copy = new String[array.length];
+        for(int i=0; i<array.length; i++)
+        {
+            copy[i] = Integer.toString(array[i]);
+        }
+        saveToFile(copy, aFileName);
+    }
+
+    static void saveToFile(String[] aInput, String aFileName)
+    {
+        if(aFileName==null)
+            return;
+        try{
+            PrintWriter writer = new PrintWriter(aFileName, "UTF-8");
+            String str = "";
+            for(int index = 0; index<aInput.length; index++)
+                str+=aInput[index] + "\n";
+            writer.println(str);
+            writer.close();
+        }catch(FileNotFoundException e){
+            System.out.println("File does not exist");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
     static void print2D(float[] input, int dimensionSize)
     {
         int k=0;
@@ -51,11 +136,11 @@ public class MatrixIO {
         {
             for(int y=0; y<dimensionSize; y++)
             {
-                int pixel = cool2;
+                int pixel = 0;
                 int pixelRepresentation = (int) (input[k] + 0.5);
-                if(pixelRepresentation==1)
-                    pixel = coolChar;
-                System.out.print((char)pixel + " ");
+                if(pixelRepresentation>=1)
+                    pixel = 1;
+                System.out.print(pixel + " ");
                 k++;
             }
             System.out.println();
