@@ -1,7 +1,7 @@
 /*
     By Brendan C. Reidy
     Created 12/10/2019
-    Last Modified 12/18/2019
+    Last Modified 4/22/2020
     Fully Connected Layer Object:
         Responsible for handling mathematical operations involved with a single fully connected layer
  */
@@ -14,9 +14,12 @@ public class FullyConnected implements Layer {
     private int length; // Length of the layer
     private float learningRate; // Learning rate of the layer
 
-    private float[][] weights; // Weights in the layer
-    private float[] bias; // Bias in the layer
+    public float[][] weights; // Weights in the layer
+    public float[] bias; // Bias in the layer
     private float[] neurons; // Neurons in the layer
+
+    private float[][] bestWeights; // Best weights in the layer
+    private float[] bestBias; // Best bias in the layer
 
     public FullyConnected(int aLength, String activationFunctionName) // Given a length and the name of an activation function, creates layer
     {
@@ -27,6 +30,7 @@ public class FullyConnected implements Layer {
         this.bias = NeuralNetwork.GenerateBias2D(aLength); // Sets the bias
         this.learningRate = 0.1f; // Sets learning rate
     }
+
     public FullyConnected(float[][] aWeights, float[] aBias, String activationFunctionName) // Generate layer with pre-trained weights and bias
     {
         this.activationFunction = ActivationFunctions.getByName(activationFunctionName);
@@ -46,6 +50,8 @@ public class FullyConnected implements Layer {
         this.previousLayer = aLayer; // Set previous layer to the given layer
         if(this.weights==null)
             this.weights = NeuralNetwork.GenerateWeights2D(previousLayer.size(), this.length); // Generate weights
+        this.bestWeights = this.weights; // Initialize best weight and bias
+        this.bestBias = this.bias; // Initialize best weight and bias
     }
     public void setNeurons(float[] aNeurons)
     {
@@ -61,6 +67,10 @@ public class FullyConnected implements Layer {
         this.neurons = activationFunction.activate(this.neurons); // Activate
         return this.neurons;
     }
+    public float[][] getWeights()
+    {
+        return this.weights;
+    }
     public float[] propagateBack(float[] currentError) // Propagate back layer given the current error for the network
     {
         float[] previousError = new float[previousLayer.size()]; // Create a new array for previous error (cumulative error for all layers)
@@ -72,10 +82,19 @@ public class FullyConnected implements Layer {
             {
                 previousError[j] += weights[i][j] * neuronError; // Calculate the error for the previous layer (n-1)
                 weights[i][j] += neuronError * previousLayer.getNeurons()[j] * learningRate; // Adjust weights
+                if(weights[i][j]>10)
+                    weights[i][j]=10;
+                else if(weights[i][j]<-10)
+                    weights[i][j]=-10;
             }
             bias[i]+=neuronError*learningRate; // Adjust bias
         }
         return previousError;
+    }
+    public void setBest()
+    {
+        this.bestWeights = this.weights;
+        this.bestBias = this.bias;
     }
     public void setLearningRate(float aLearningRate)
     {
@@ -93,6 +112,10 @@ public class FullyConnected implements Layer {
     {
         return 1;
     }
+    public int sizeZ()
+    {
+        return 1;
+    }
     public String toString() // Returns the important properties of the layer
     {
         return this.name + ":" +
@@ -102,10 +125,10 @@ public class FullyConnected implements Layer {
     }
     public void saveWeightsToFile(String aFileName) // Saves weights
     {
-        MatrixIO.saveToFile(MatrixIO.flattenArray(this.weights), aFileName);
+        MatrixIO.saveToFile(MatrixIO.flattenArray(this.bestWeights), aFileName);
     }
     public void saveBiasToFile(String aFileName) // Save bias
     {
-        MatrixIO.saveToFile(this.bias, aFileName);
+        MatrixIO.saveToFile(this.bestBias, aFileName);
     }
 }

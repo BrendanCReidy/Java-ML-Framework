@@ -1,6 +1,5 @@
-import java.util.LinkedList;
-import java.util.Random;
 import java.io.File;
+import java.util.LinkedList;
 /*
     By Brendan C. Reidy
     Created 12/10/2019
@@ -19,6 +18,8 @@ public class NeuralNetwork {
     private CostFunction costFunction; // Cost function for network
     private LinkedList<Float> trainCost; // List of train costs
     private LinkedList<Float> testCost; // List of test costs
+    private DatasetAnalysis[] testAnalysisModels;
+    public float mostRecentCost;
 
     private float learningRate;
 
@@ -42,6 +43,7 @@ public class NeuralNetwork {
         this.layers = new Layer[0];
         this.length = 0;
         this.costFunction = new MeanSquaredError();
+        this.testAnalysisModels = new DatasetAnalysis[0];
         init();
     }
     private void init()
@@ -56,6 +58,23 @@ public class NeuralNetwork {
 
     private boolean testDataWarning = false;
     private boolean didOutput = false;
+    public float getCost()
+    {
+        float avgError = 0;
+        for(int i=0; i<train_inputs.length; i++) // Iterate through each training sample
+        {
+            float[] input = train_inputs[i]; // Get input training data
+            float[] correctOutput = train_outputs[i]; // Get correct label/output
+            setInput(input); // Set input of the network to the training input
+            feedForward(); // Feed forward the network
+            float[] output = getOutput(); // Get output of the network
+            float[] cost = costFunction.cost(output, correctOutput); // Get cost for each neuron
+            for(int j=0; j<cost.length; j++)
+                avgError+=cost[j]; // Cost is the sum of the error for all neurons
+        }
+        avgError/=train_inputs.length; // Get average error over entire training data
+        return avgError;
+    }
     public void train()
     {
         if(epochNum!=0)
@@ -76,7 +95,6 @@ public class NeuralNetwork {
         {
             testDataWarning = true;
             System.out.println("[WARNING] Test data not set for network.");
-            return;
         }
         if(!didOutput) // Only need to output once, otherwise floods output
         {
@@ -98,10 +116,13 @@ public class NeuralNetwork {
         }
         avgError/=train_inputs.length; // Get average error over entire training data
         trainCost.add(avgError); // Keep track of for file IO
+        mostRecentCost = avgError;
         System.out.print("Cost: " + avgError); // Print average error to console
         if(test_inputs!=null) // Check if there is test data
         {
             avgError = 0;
+            for(int i=0; i<testAnalysisModels.length; i++) // Tell each test analysis model a new epoch is starting
+                testAnalysisModels[i].startEpoch();
             for(int i=0; i<test_inputs.length; i++) // Get error for each test sample
             {
                 float[] input = test_inputs[i]; // Test input
@@ -110,14 +131,21 @@ public class NeuralNetwork {
                 feedForward(); // Feed forward
                 float[] output = getOutput(); // Get output neurons
                 float[] cost = costFunction.cost(output, correctOutput); // Get cost
+                for(int j=0; j<testAnalysisModels.length; j++)
+                    testAnalysisModels[j].analyzeLayer(output, correctOutput); // Perform analysis on output
                 for(int j=0; j<cost.length; j++) // Get sum of error for neurons
                     avgError+=cost[j];
             }
             avgError/=test_inputs.length; // Get average error over test subset length
             testCost.add(avgError); // Store for file IO
             System.out.print("\tTest Cost: " + avgError); // Print test error to console
-            if(avgError<bestCost)
+            for(int i=0; i<testAnalysisModels.length; i++)
+                testAnalysisModels[i].printResults(); // Print result to console
+            if(avgError<bestCost) {
                 bestCost = avgError;
+                for(int i=1; i<layers.length; i++)
+                    layers[i].setBest();
+            }
         }else if(avgError<bestCost)
             bestCost = avgError;
 
@@ -141,6 +169,14 @@ public class NeuralNetwork {
         for(int i=1; i<layers.length; i++) // Set learning rate for each layer in the network
             layers[i].setLearningRate(aRate);
     }
+    public void addDatasetAnaylsisModel(DatasetAnalysis aModel)
+    {
+        DatasetAnalysis[] temp = new DatasetAnalysis[this.testAnalysisModels.length+1]; // Temp array; bigger for new model
+        for(int i=0; i<this.testAnalysisModels.length; i++) // Copy current models
+            temp[i] = testAnalysisModels[i];
+        temp[this.testAnalysisModels.length] = aModel; // Add new model at end
+        this.testAnalysisModels = temp; // Set the networks test models to the newly updated array
+    }
     public void addLayer(Layer aLayer) // Add layer to network
     {
         if(length!=0) // If not first layer in network
@@ -154,6 +190,24 @@ public class NeuralNetwork {
         this.outputLayer = aLayer; // Output layer is this layer since it is the last
         layers = temp; // Set the networks layer to the array containing all layers
         length++; // Increase length of network by 1
+    }
+
+    public void setBest()
+    {
+        for(int i=1; i<layers.length; i++)
+        {
+            layers[i].setBest();
+        }
+    }
+
+    public Layer[] getLayers()
+    {
+        return this.layers;
+    }
+
+    public float[][] getTrainInputs()
+    {
+        return this.train_inputs;
     }
 
     public float[] getOutput() // Gets output neurons
@@ -196,10 +250,16 @@ public class NeuralNetwork {
 
         String topology = "" + layers[0].sizeX()*layers[0].sizeY(); // Stores the topology of the network in a string
         String structure = "\t" + layers[0].toString() + "\n"; // Stores the structure of the network in a string
+        String datasetAnaylsisModelText = "";
+        for(int i=0; i<testAnalysisModels.length; i++) // Iterate through all test analysis models
+        {
+            datasetAnaylsisModelText+=testAnalysisModels[i].appendToReadMe() + "\n"; // Append info to readme
+            testAnalysisModels[i].saveToFile(outputDirectory); // Save important info to directory
+        }
         for(int i=1; i<layers.length; i++)
         {
-            layers[i].saveBiasToFile(outputDirectory + "B" + i); // Saves the biases
-            layers[i].saveWeightsToFile(outputDirectory + "W" + i); // Saves the weights
+            //layers[i].saveBiasToFile(outputDirectory + "B" + i); // Saves the biases
+            //layers[i].saveWeightsToFile(outputDirectory + "W" + i); // Saves the weights
             topology+= "x" + layers[i].sizeX()*layers[i].sizeY(); // Gets the size at the index and adds to topology
             structure+="\t" + layers[i].toString() + "\n"; // Add current layer structure to network structure
         }
@@ -212,8 +272,8 @@ public class NeuralNetwork {
                 "Statistics: ",
                 "\tBest Cost: " + Float.toString(bestCost),
                 "\tNumber of epochs: " + Integer.toString(epochNum),
-                "\tAverage Epoch Time: " + Double.toString(averageTime) + "s"};
-
+                "\tAverage Epoch Time: " + Double.toString(averageTime) + "s",
+                "\nTest Dataset Analysis Models:\n" + datasetAnaylsisModelText};
         MatrixIO.saveToFile(outputs, outputDirectory + "README.txt"); // Save README file
         MatrixIO.saveToFile(trainCost, outputDirectory + "trainCosts.txt"); // Save training costs
         MatrixIO.saveToFile(testCost, outputDirectory + "testCosts.txt"); // Save test costs

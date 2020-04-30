@@ -7,7 +7,7 @@
  */
 
 public class ActivationFunctions {
-    static ActivationFunction[] allFunctions = {new Sigmoid(), new ReverseSigmoid(), new SoftMax(), new RELU()}; // List of all the functions
+    static ActivationFunction[] allFunctions = {new Sigmoid()}; // List of all the functions
     static ActivationFunction getByName(String aName) // Get the activation function by name (makes user interface much smoother)
     {
         for(int i = 0; i<allFunctions.length; i++)

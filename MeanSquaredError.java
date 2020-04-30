@@ -5,7 +5,7 @@
     Mean squared error cost function
  */
 
-public class MeanSquaredError implements CostFunction{
+public class MeanSquaredError implements CostFunction {
 
     private String name = "Mean Squared Error";
 

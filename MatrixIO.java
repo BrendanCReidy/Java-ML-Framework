@@ -13,6 +13,31 @@ import java.util.Scanner;
  */
 
 public class MatrixIO {
+    public static int getLength(String aFileName)
+    {
+        if(aFileName==null)
+        {
+            System.out.println("[FATAL] Input file name is null");
+            return -1;
+        }
+        try {
+            System.out.println("Counting file: " + aFileName);
+            Scanner fileScanner = new Scanner(new File(aFileName));
+            int count = 0;
+            while(fileScanner.hasNext())
+            {
+                fileScanner.nextLine();
+                count++;
+            }
+            fileScanner.close();
+            return count;
+        }catch(FileNotFoundException e){
+            System.out.println("File '" + aFileName + "' does not exist");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
     static float[][] readTrainingData(String aFileName, int length)
     {
         if(aFileName==null)
@@ -21,7 +46,7 @@ public class MatrixIO {
             return null;
         }
         try {
-            float[][] dataArray = new float[length*2][];
+            float[][] dataArray = new float[length][];
             System.out.println("Reading file: " + aFileName);
             Scanner fileScanner = new Scanner(new File(aFileName));
             int count = 0;
@@ -34,7 +59,7 @@ public class MatrixIO {
                     float current = Float.parseFloat(splitLines[i]);
                     values[i] = current;
                 }
-                if(count>=length*2) {
+                if(count>=dataArray.length) {
                     System.out.println("[WARNING] Reading stopped early. File is larger than specified");
                     break;
                 }
@@ -132,7 +157,7 @@ public class MatrixIO {
     static void print2D(float[] input, int dimensionSize)
     {
         int k=0;
-        for(int x=0; x<dimensionSize; x++)
+        for(int x=0; x<input.length/dimensionSize; x++)
         {
             for(int y=0; y<dimensionSize; y++)
             {

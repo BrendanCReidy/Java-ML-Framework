@@ -6,8 +6,6 @@
         A place holder for input neurons
  */
 
-import java.awt.geom.Dimension2D;
-
 public class PlaceHolder2D implements Layer {
     public String name = "PlaceHolder2D";
     private float[] neurons;
@@ -27,6 +25,10 @@ public class PlaceHolder2D implements Layer {
     public float[] feedForward(float[] aLayer){
         System.out.println("[ERROR] Feed forward called on input layer.");
         return aLayer;
+    }
+    public float[][] getWeights()
+    {
+        return null;
     }
     public float[] propagateBack(float[] aLayer)
     {
@@ -53,6 +55,10 @@ public class PlaceHolder2D implements Layer {
     {
         return this.width;
     }
+    public int sizeZ()
+    {
+        return 1;
+    }
     public void setLearningRate(float aLearningRate)
     {
         System.out.println("[WARNING] Attempted to set learning rate for input layer... Ignoring");
@@ -61,8 +67,11 @@ public class PlaceHolder2D implements Layer {
     {
         return this.name + ":" +
                 "\n\t   Size: " + this.size() +
-                "\n\t   DimX: " + this.sizeX() +
-                "\n\t   DimY: " + this.sizeY();
+                "\n\t   Dim: " + this.sizeX() + "x" + this.sizeY();
+    }
+    public void setBest()
+    {
+        System.out.println("[WARNING] Attempted to set best for input layer... Ignoring");
     }
     public void saveWeightsToFile(String aFileName)
     {
