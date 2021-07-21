@@ -1,6 +1,6 @@
 # Java Machine Learning "jFlow"
 Java Machine Learning Project
-By Brendan C Reidy (Copyright @ Brendan C Reidy)
+By Brendan C Reidy
 
 ##### Description:
 This program trains neural networks using stochastic gradient descent. This program can handle a wide variety of network structures from RNN's and LTSM's to autoencoders.
