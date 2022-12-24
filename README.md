@@ -105,3 +105,16 @@ public class Sigmoid implements ActivationFunction {
 }
 ```
 Change the "activate" method to your activation function and the "activationError" method to you error created by that layer (propogated through the model)
+
+If you use this code please cite
+```
+@INPROCEEDINGS{9516756,
+  author={Elbtity, Mohammed and Singh, Abhishek and Reidy, Brendan and Guo, Xiaochen and Zand, Ramtin},
+  booktitle={2021 IEEE Computer Society Annual Symposium on VLSI (ISVLSI)}, 
+  title={An In-Memory Analog Computing Co-Processor for Energy-Efficient CNN Inference on Mobile Devices}, 
+  year={2021},
+  volume={},
+  number={},
+  pages={188-193},
+  doi={10.1109/ISVLSI51109.2021.00043}}
+```
