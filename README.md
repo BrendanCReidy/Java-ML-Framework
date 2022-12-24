@@ -3,7 +3,7 @@ Java Machine Learning Project
 By Brendan C Reidy
 
 ##### Description:
-The Java DNN Program can be used to train models using Binary Neural Networks (BNN) and Ternary Neural Networks (TNN). These are the same networks implemented in our [paper](https://ieeexplore.ieee.org/abstract/document/9516756) "An In-Memory Analog Computing Co-Processor for Energy-Efficient CNN Inference on Mobile Devices"
+The Java DNN Program can be used to train models using either FP32, Binary Neural Networks (BNN), and Ternary Neural Networks (TNN). These are the same networks implemented in our [paper](https://ieeexplore.ieee.org/abstract/document/9516756) "An In-Memory Analog Computing Co-Processor for Energy-Efficient CNN Inference on Mobile Devices"
 The code online is specifically using the **MNIST** dataset, but can be used with any dataset. MNIST is too large to upload to GitHub but can be found [here](http://yann.lecun.com/exdb/mnist/)
 
 Instructions on downloading and formatting the MNIST dataset can be found [here](http://rasbt.github.io/mlxtend/user_guide/data/loadlocal_mnist/)
