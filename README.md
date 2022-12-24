@@ -69,3 +69,39 @@ This will auto generate a README with info about the network, a file with the tr
 ## Activation functions
 The in circuit Neural Network uses 'reverse sigmoid' as the activation function, which is why it is used in training as well.
 
+## Creating Activation Functions
+Activtion functions can be easily implemented by modifying the following template (we'll use Sigmoid as an example)
+```
+public class Sigmoid implements ActivationFunction {
+    String name = "Sigmoid";
+    public float sigmoid(float x)
+    {
+        return 1 / (1 + (float) Math.exp(-x));
+    }
+    public float inverseSigmoidDerivative(float y)
+    {
+        return y*(1-y);
+    }
+    public float[] activate(float[] aLayer)
+    {
+        for(int i=0; i<aLayer.length; i++)
+            aLayer[i] = sigmoid(aLayer[i]);
+        return aLayer;
+    }
+    public float[] activationError(float[] aLayer)
+    {
+        for(int i=0; i<aLayer.length; i++)
+            aLayer[i] = inverseSigmoidDerivative(aLayer[i]);
+        return aLayer;
+    }
+    public String getName()
+    {
+        return this.name;
+    }
+    public String toString()
+    {
+        return this.name;
+    }
+}
+```
+Change the "activate" method to your activation function and the "activationError" method to you error created by that layer (propogated through the model)
