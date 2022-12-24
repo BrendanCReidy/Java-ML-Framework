@@ -2,6 +2,8 @@
 Java Machine Learning Project
 By Brendan C Reidy
 
+For C++/CUDA GPU implementation of this project click [here](https://github.com/iCAS-Lab/CUDA-Neural-Network)
+
 ##### Description:
 The Java DNN Program can be used to train models using either FP32, Binary Neural Networks (BNN), and Ternary Neural Networks (TNN). These are the same networks implemented in our [paper](https://ieeexplore.ieee.org/abstract/document/9516756) "An In-Memory Analog Computing Co-Processor for Energy-Efficient CNN Inference on Mobile Devices". This repository has been 
 The examples in this repository are specifically for the **MNIST** dataset, but can be used with any dataset.
