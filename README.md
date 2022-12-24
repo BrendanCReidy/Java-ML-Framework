@@ -9,31 +9,63 @@ The code online is specifically using the **MNIST** dataset, but can be used wit
 Instructions on downloading and formatting the MNIST dataset can be found [here](http://rasbt.github.io/mlxtend/user_guide/data/loadlocal_mnist/)
 
 ---------------------------------------------------------------
-# Getting Started:
-Familiarize yourself with how training data is formatted for these networks (See "Creating Training Data" below). If you understand how the training data is formatted you can start training using the following code:
+## Loading Files
+Files in CSV format are loaded into two dimensional floating point arrays using the MatrixIO object
+Example:
 ```
-int numTrain = 60000; // Number of training inputs
-int numTest = 10000;  // Number of validation inputs
-
-int inputSizeX = 28;
-int inputSizeY = 28;
-int outputSize = 10;
-
-float[][] trainingData = MatrixIO.readTrainingData("trainX.txt", numTrain);
-float[][] testingData = MatrixIO.readTrainingData("testX.txt", numTest);
-
-float[][] trainLabels = MatrixIO.readTrainingData("trainY.txt", numTrain);
-float[][] testLabels = MatrixIO.readTrainingData("testY.txt", numTest);
+float[][] trainingData = MatrixIO.readTrainingData("FILE_NAME", NUM_LINES); // Loads csv file to trainingData variable
+```
 
 
-NeuralNetwork network = new NeuralNetwork();
+## Creating a Neural Network
+In order to create a Neural Network, start by creating a Neural Network object:
+
+```
+NeuralNetwork network = new NeuralNetwork(); // Initializes object
+```
+Next you want to set the training and validation (test) data for the network:
+```
 network.setTrainingData(trainingData, trainLabels);
 network.setTestingData(testingData, testLabels);
-network.addLayer(new PlaceHolder2D(inputSizeX, inputSizeY)); // Input layer (28x28 pixel imge in this case)
-network.addLayer(new FullyConnectedTernary(16, "sigmoid"));  // First hidden layer (16 neurons, sigmoid activation)
-network.addLayer(new FullyConnectedTernary(16, "sigmoid"));  // Second hidden layer (16 neurons, sigmoid activation)
-network.addLayer(new FullyConnectedTernary(outputSize, "sigmoid")); // Output layer (10 neurons, sigmoid activation)
-
-network.train(); // Trains for one epoch
 ```
+Next you can begin definining the topology of the Network. Start with the input layer:
+```
+network.addLayer(new Input2D(28, 28)); // Creates input layer; MNIST's dimensions are 28x28
+```
+Next you can begin defining the intermediate layers (you can define as many or as few as you like):
+```
+network.addLayer(new FullyConnectedBinary(16, "reverse sigmoid")); // Creates a hidden layer with 16 hidden neurons and uses 'reverse sigmoid' as the activation function (see 'Activation functions')
+```
+Next define the output layer:
+```
+network.addLayer(new FullyConnectedBinary(10, "reverse sigmoid")); // 10 neurons, reverse sigmoid activation
+```
+
+## Running a Neural Network
+Now that the neural network hsa been created, you can run the network for one epoch with:
+```
+network.train();
+```
+Run for multiple epochs with:
+```
+for(int i=0; i<numEpochs; i++) {
+    network.train();
+}
+```
+
+## Getting accuracy
+You can find the validation accuracy by adding the following line before running the train method:
+```
+network.addDatasetAnaylsisModel(new MaxOutputAccuracy());
+```
+
+## Saving results
+You can save the neural network to a file using the following:
+```
+network.saveToFile("OUTPUT_DIRECTORY_NAME/");
+```
+This will auto generate a README with info about the network, a file with the training and validation cost over time, and all of the floating point and ternary/binary weights and biases throughout the network
+
+## Activation functions
+The in circuit Neural Network uses 'reverse sigmoid' as the activation function, which is why it is used in training as well.
 
